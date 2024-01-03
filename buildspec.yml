@@ -20,6 +20,7 @@ phases:
     commands:
       - echo Build started on 'date'
       - mkdir -p build
+      - ls -lah
       - echo Installing composer deps
       - composer install
       - tar -czf build/packages-dev.gz ./
