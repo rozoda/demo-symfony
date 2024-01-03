@@ -1,5 +1,9 @@
 version: 0.2
 
+env:
+  variables:
+    VERSION: "1.0.0"
+
 phases:
   install:
     runtime-versions:
@@ -15,16 +19,16 @@ phases:
       - composer install --no-interaction
   build:
     commands:
-      - echo Build started on 'date'
+      - echo "Build started $(date)"
       - php bin/console cache:clear --no-debug
       - php bin/console assets:install public
       - php bin/console cache:warmup
       - mkdir -p build
-      - tar -czf build/packages-dev.gz --exclude=./buildspec.yml --exclude=./.github --exclude=./build --exclude=./vendor ./
+      - tar -czf build/packages-dev.gz --exclude=./.github --exclude=./build --exclude=./vendor ./
 
   post_build:
     commands:
-      - echo Build completed on `date`
+      - echo "Build completed $(date)"
 artifacts:
   files:
     - build/packages-dev.gz
