@@ -11,8 +11,6 @@ phases:
     commands:
       - curl -s https://getcomposer.org/installer | php
       - mv  composer.phar /usr/local/bin/composer
-      - php --version
-      - ls -lah
   pre_build:
     commands:
       - echo "php version"
@@ -21,14 +19,12 @@ phases:
     commands:
       - echo Build started on 'date'
       - mkdir -p build
-      - ls -lah
       - echo Installing composer deps
       - composer install
       - tar -czf build/packages-dev.gz --exclude=./.github --exclude=./build --exclude=./vendor ./
       
   post_build:
     commands:
-      - ls -lah
       - echo Build completed on `date`
 artifacts:
   files:
