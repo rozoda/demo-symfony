@@ -24,7 +24,18 @@ phases:
       - ls -lah
       - echo Installing composer deps
       - composer install
-      - tar -czf build/packages-dev.gz ./
+      - tar -czf build/packages-dev.gz ./ \
+          --exclude=./app/config/parameters.yml \
+          --exclude=./.ackrc \
+          --exclude=./.git \
+          --exclude=./.gitignore \
+          --exclude=./.php_cs \
+          --exclude=./.php_cs.cache \
+          --exclude=./build \
+          --exclude=./deploy.php \
+          --exclude=./grumphp.yml \
+          --exclude=./node_modules \
+          --exclude=./vendor
   post_build:
     commands:
       - ls -lah
