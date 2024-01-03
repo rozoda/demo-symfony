@@ -24,7 +24,8 @@ phases:
       - ls -lah
       - echo Installing composer deps
       - composer install
-      - tar -czf build/packages-dev.gz ./ --exclude=./.github --exclude=./build --exclude=./vendor
+      - tar -czf build/packages-dev.gz --exclude=./.github --exclude=./build --exclude=./vendor ./
+      
   post_build:
     commands:
       - ls -lah
