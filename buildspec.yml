@@ -1,0 +1,44 @@
+version: 0.2
+
+# env:
+#   variables:
+#     JAVA_HOME: "/usr/lib/jvm/java-8-openjdk-amd64"
+#   parameter-store:
+#     LOGIN_PASSWORD: /CodeBuild/dockerLoginPassword
+
+phases:
+  install:
+    runtime-versions:
+      php: 8.2
+    commands:
+      - curl -s https://getcomposer.org/installer | php
+      - mv  composer.phar /usr/local/bin/composer
+      - php --version
+  pre_build:
+    commands:
+      - echo "php version"
+      - php -v
+  build:
+    commands:
+      - echo Build started on 'date'
+      - mkdir -p build
+      - echo Installing composer deps
+      - composer install
+      - tar -czf build/packages-dev.gz ./ \
+          --exclude=./app/config/parameters.yml \
+          --exclude=./.ackrc \
+          --exclude=./.git \
+          --exclude=./.gitignore \
+          --exclude=./.php_cs \
+          --exclude=./.php_cs.cache \
+          --exclude=./build \
+          --exclude=./deploy.php \
+          --exclude=./grumphp.yml \
+          --exclude=./node_modules \
+          --exclude=./vendor
+  post_build:
+    commands:
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - build/packages-dev.gz
