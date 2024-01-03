@@ -5,7 +5,7 @@ phases:
     runtime-versions:
       php: 8.2
     commands:
-      - apt-get update
+      - yum update -y
       - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
       - composer self-update
   pre_build:
